@@ -25,7 +25,7 @@ cursor = conn.cursor()
 
 # Create table if it doesn't exist
 cursor.execute("""
-    CREATE TABLE IF NOT EXISTS readings (
+    CREATE TABLE IF NOT EXISTS MAX6675 (
         id serial PRIMARY KEY,
         reading1 numeric,
         reading2 numeric
