@@ -27,8 +27,8 @@ cursor = conn.cursor()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS MAX6675 (
         id serial PRIMARY KEY,
-        reading1 numeric,
-        reading2 numeric
+        Timestamp VARCHAR(150),
+        Temperature VARCHAR(50)
     );
 """)
 
