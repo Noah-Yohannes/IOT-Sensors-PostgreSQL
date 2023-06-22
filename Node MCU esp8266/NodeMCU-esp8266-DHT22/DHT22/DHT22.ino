@@ -9,9 +9,9 @@ DHT dht(data, DHTTYPE);
 #include <WiFiClient.h>    //to set the NodeMCU_esp8266 as a client sending data
 
 // WiFi parameters to be configured
-const char* ssid = "Galaxy M31"; // Write here your router's username
-const char* password = "87654321"; // Write here your router's passward
-const char* serverIP = "192.168.107.137";  //the IP address of the server
+const char* ssid = "Enter_Your_wifi"; // Write here your router's username
+const char* password = "Enter_Your_wifi"; // Write here your router's passward
+const char* serverIP = "Enter destination Ip address";  //the IP address of the server
 int serverPort = 5095;  //  port number of the server
 
 WiFiClient client;       //declare a client object to be used in all client side manipulations concerning wifi

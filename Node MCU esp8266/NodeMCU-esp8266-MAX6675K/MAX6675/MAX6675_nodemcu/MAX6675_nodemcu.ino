@@ -15,9 +15,9 @@
 
 //WiFiServer server(80);
 // WiFi parameters to be configured
-const char* ssid = "Galaxy M31"; // Write here your router's username
-const char* password = "87654321"; // Write here your router's passward
-const char* serverIP = "192.168.107.137";  //the IP address of the server
+const char* ssid = "Enter your wifi"; // Write here your router's username
+const char* password = "enter your wifi password"; // Write here your router's passward
+const char* serverIP = "enter your destination Ip address";  //the IP address of the server
 int serverPort = 5095;  //  port number of the server
 
 
