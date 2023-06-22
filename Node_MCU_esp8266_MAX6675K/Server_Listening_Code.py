@@ -23,6 +23,15 @@ conn = psycopg2.connect(host=dbhost, port=dbport,
 # Create a cursor object
 cursor = conn.cursor()
 
+# Create table if it doesn't exist
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS readings (
+        id serial PRIMARY KEY,
+        reading1 numeric,
+        reading2 numeric
+    );
+""")
+
 # Create a socket object
 # specifying that the type of socket is IPv4, and TCP type by the second argument
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
