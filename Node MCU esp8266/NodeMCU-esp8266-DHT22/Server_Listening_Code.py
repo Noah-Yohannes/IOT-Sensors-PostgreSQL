@@ -16,7 +16,7 @@ dbhost = "localhost"
 dbport = "5432"
 db = "postgres"
 dbuser = "postgres"
-dbpassword = "Postgresql1sgood!"  # ezia kab zkone seb hibaya
+dbpassword = "Enter_your_PostgreSQL_password here"
 
 
 # Establishing a connection to the database
