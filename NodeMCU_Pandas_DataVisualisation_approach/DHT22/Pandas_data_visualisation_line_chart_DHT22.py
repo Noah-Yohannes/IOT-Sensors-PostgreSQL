@@ -32,13 +32,6 @@ if choice == "y":
     window_size = int(window_size)
 # _______________________________________________________________________________________________________________________________________________
 
-90
-# Create a logger instance
-log = logging.getLogger(__name__)
-
-# Set the logging level to DEBUG
-log.setLevel(logging.DEBUG)
-
 
 # ---->>>>>>>>> Database parameters | Table creation  <<<<<<<<---------#
 # Connection parameters
@@ -155,7 +148,6 @@ while True:
         'fontsize': 20, 'fontstyle': 'oblique'}, color='blue')
     ax1.set_title(" Temperature, Humidity vs timestamp", fontdict={
         'fontsize': 22, 'fontstyle': 'italic'}, color="brown", pad=20)
-    log.debug("flex", "Just flexing the use of logging library in python")
     plt.xticks(rotation=45)
 
     plt.show()
