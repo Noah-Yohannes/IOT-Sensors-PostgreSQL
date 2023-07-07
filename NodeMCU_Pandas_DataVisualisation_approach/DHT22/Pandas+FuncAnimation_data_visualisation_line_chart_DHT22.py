@@ -20,12 +20,6 @@ import matplotlib.animation as animationi
 import logging              # for future references
 
 
-# this part might need some adjustment
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-
 # ---->>>>>>>>> Database parameters | Table creation  <<<<<<<<---------#
 # Connection parameters
 # because I am displaying the pgadmin table in the same laptop I am reading the values
