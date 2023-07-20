@@ -102,7 +102,7 @@ def update_plot(Te, Ts, temperat, timest):
     plt.title('Temperature reading line chart')
     plt.xlabel('Timestamp')
     plt.ylabel('Temperature reading')
-    # as its name indicates it puts ticks, marker, sign in the x_values positions specified above at an angle 45 degrees
+    # as its name indicates puts ticks, marker, sign in the x_values positions specified above at an angle 45 degrees
     plt.xticks(x_values, rotation=45)
     plt.show()  # when the figure, plot  is manifested/displayed
 
@@ -126,12 +126,13 @@ def update_plot(Te, Ts, temperat, timest):
 
 # ----------->>>>>>>>>>>>>>>>> Database parameters | Establishing connection | Creating a table <<<<<<<<<<<<<<<---------------------
 
-dbhost = "localhost"     # because I am hosting the pgadmin table in the same laptop I am reading the values, my host name is "localhost" in postgresql
+dbhost = "localhost"  # because I am hosting the pgadmin table in the same laptop I am reading the values, my host name is "localhost" in postgresql
 dbport = "5432"                     # default port for PostgreSQL
 db = "postgres"                     # default database name is postgres
-dbuser = "postgres"                 # default database user name is postgres
+# default database user name is postgres
+dbuser = "postgresql_username"
 # PostgreSQL password to be established with the database
-dbpassword = "Your_Postgresql_Password"
+dbpassword = "Your_postgresql_password"
 # datetime library is more comprehensive in that it includes dates, months and even years and that's why it is used
 current_t = datetime.datetime.now()
 # instead of the time library

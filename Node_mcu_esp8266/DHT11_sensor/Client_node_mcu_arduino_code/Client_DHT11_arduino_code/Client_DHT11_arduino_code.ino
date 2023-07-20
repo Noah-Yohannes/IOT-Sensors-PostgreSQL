@@ -1,6 +1,12 @@
+
+/*  This is a code for the reading temperature and humidity values from the DHT11 sensor in the arduino IDE. 
+
+   This code encodes the readings and sends the data to the server  
+*/
+
 #include <DHT.h>
 // #define data 2
-#define DHTTYPE DHT22
+#define DHTTYPE DHT11
 const int data = 2;
 DHT dht(data, DHTTYPE);
 
@@ -9,9 +15,9 @@ DHT dht(data, DHTTYPE);
 #include <WiFiClient.h>    //to set the NodeMCU_esp8266 as a client sending data
 
 // WiFi parameters to be configured
-const char* ssid = "Your_2.4GHz_wifi"; // Write here your router's username
-const char* password = "Your_wifi_password"; // Write here your router's passward
-const char* serverIP = "Your_server_IP_address";  //the IP address of the server   192.168.178.137
+const char* ssid = "LAN_network"; // Write here your router's username
+const char* password = "password"; // Write here your router's passward
+const char* serverIP = "server_address";  //the IP address of the server     
 int serverPort = 0000;  //  port number of the server
 
 WiFiClient client;       //declare a client object to be used in all client side manipulations concerning wifi
@@ -52,6 +58,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
     //humudity and temperature
+    
   float humidity = dht.readHumidity();            //read humudity levels from the DHT11 sensor
   float temperature = dht.readTemperature();       //read humudity levels from the DHT11 sensor
 

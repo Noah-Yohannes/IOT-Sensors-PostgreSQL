@@ -14,33 +14,39 @@ from collections import deque
 import numpy as np                     # for numberical manipulation
 import matplotlib.pyplot as plt         # library to plot the line chart we want
 import pandas as pd
-import matplotlib            # for plotting, explore the difference of explicitly importing a library such as matplotlib.pyplot and the library generally as in this case
+# import matplotlib            # for plotting, explore the difference of explicitly importing a library such as matplotlib.pyplot and the library generally as in this case
 import logging              # for future references
-
 
 # _______________________This part enclosed can be skipped, I just included it to make it more interactive________________________________
 
-window_size = 10  # default sample size to be displayed
+window_size = 10        # default sample size to be displayed
 # asking user if they want to change the sample size from 10
-choice = input(
-    "Do you want to display temperature and humudity readings for more than 10 samples? y/n")
+"""choice = input(
+    "Do you want to display temperature and humudity readings for more than 10 samples? y/n ")
 
 # if their choice is yes asks for the new sample size, else it continues
 if choice == "y":
     window_size = input(
         "Please enter how many temperature readings do you want to display")
-    window_size = int(window_size)
+    window_size = int(window_size)"""
 # _______________________________________________________________________________________________________________________________________________
+
+# Create a logger instance
+log = logging.getLogger(__name__)
+
+# Set the logging level to DEBUG
+log.setLevel(logging.DEBUG)
 
 
 # ---->>>>>>>>> Database parameters | Table creation  <<<<<<<<---------#
 # Connection parameters
 # because I am displaying the pgadmin table in the same laptop I am reading the values
-dbhost = "your_host_name"
-dbport = "database_port_being_used"
-db = "database_name"
-dbuser = "database_user_name"
-dbpassword = "Your_database_password"
+# localhost because I am using my laptop as the destination datbase for the system
+dbhost = "localhost"
+dbport = "5432"  # default port number
+db = "postgres"
+dbuser = "postgresql_username"
+dbpassword = "Your_postgresql_password"  # ezia kab zkone seb hibaya
 
 
 # Establishing a connection to the database
@@ -53,7 +59,7 @@ cursor = conn.cursor()
 
 # Create table if it doesn't exist
 cursor.execute("""
-    CREATE TABLE IF NOT EXISTS DHT22_nodemcu_table (
+    CREATE TABLE IF NOT EXISTS DHT22_raspberrypi (
         id serial PRIMARY KEY,
         Timestamp VARCHAR(150),
         Temperature VARCHAR(50),
@@ -64,7 +70,7 @@ cursor.execute("""
 # ---->>>>>>>>> TCP wifi connection parameters<<<<<<<<---------
 
 host = "0.0.0.0"  # Listen on all available network interfaces
-port = 0000      # Port number to listen on/ should be changed to fit your PC free port number and must match the port in arduino IDE
+port = 0000      # Port number to listen on
 # Create a socket object
 # specifying that the type of socket is IPv4, and TCP type by the second argument
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -114,7 +120,7 @@ while True:
 
     # specifying the details of the columns and the table from which we want to extract data, just a string but will be used in the next command
     sql_connection = (
-        "SELECT timestamp, temperature, humidity FROM DHT22_nodemcu_table")
+        "SELECT timestamp, temperature, humidity FROM DHT22_raspberrypi")
 
     # here we are using pandas to read from an sql and the conn object to communicate with the database using psycopg2 library
     # the .tail(10) will give us the last 10 rows, the latest readings. We are going to use those latest 10 entries to plot the graph, relevant and up-to-date.
@@ -148,6 +154,7 @@ while True:
         'fontsize': 20, 'fontstyle': 'oblique'}, color='blue')
     ax1.set_title(" Temperature, Humidity vs timestamp", fontdict={
         'fontsize': 22, 'fontstyle': 'italic'}, color="brown", pad=20)
+    log.debug("flex", "Just flexing the use of logging library in python")
     plt.xticks(rotation=45)
 
     plt.show()
@@ -160,7 +167,7 @@ while True:
 
     # Insert the readings into the table
     cursor.execute(
-        "INSERT INTO DHT22_nodemcu_table (TimeStamp, Temperature, Humidity) VALUES (%s, %s, %s);", (TimeStamp, Temperature, Humidity))
+        "INSERT INTO DHT22_raspberrypi (TimeStamp, Temperature, Humidity) VALUES (%s, %s, %s);", (TimeStamp, Temperature, Humidity))
     conn.commit()
 
 
