@@ -26,6 +26,14 @@
      - Client's code (Python): 'spidev', 'time', 'sys', 'socket', 'Adafruit_DHT'
      -  Server's code (Laptop): 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
 
+### Recommended Softwares
+- VNC software -> to access the display of the raspberry pi zero w/wh and remotely control/ program it.
+- PuTTY emulator -> allows you to connect to a remote machine through SSH protocol. This is more convenient than using the cmd to access
+                   the Raspberry Pi zero W/WH all the time.
+- PostgreSQL -> free database management system.
+- Arduino IDE -> IDE that easily allows you to write C++ code and upload the code into a board.
+
+
   ## Author
    - Noah Yohannes
    - GitHub: [Noah-Yohannes](https://github.com/Noah-Yohannes)
