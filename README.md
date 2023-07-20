@@ -26,7 +26,7 @@
      - Client's code (Python): 'spidev', 'time', 'sys', 'socket', 'Adafruit_DHT'
      -  Server's code (Laptop): 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
 
-### Recommended Softwares
+## Recommended Softwares
 - VNC software -> to access the display of the raspberry pi zero w/wh and remotely control/ program it.
 - PuTTY emulator -> allows you to connect to a remote machine through SSH protocol. This is more convenient than using the cmd to access
                    the Raspberry Pi zero W/WH all the time.
