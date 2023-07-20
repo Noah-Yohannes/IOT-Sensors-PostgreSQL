@@ -17,7 +17,7 @@
      (Arduino_IDE)  (laptop) (Arduino_IDE)   (laptop)              (Python)   (laptop)  (Python)  (laptop)
 
 
-### **Dependencies & Libraries**
+## **Dependencies & Libraries**
 
 - Node_mcu_esp8266:
          - Client's code (in Arduino IDE): = 'WiFiClient.h', 'ESP8266WiFi.h', 'DHT.h', 'max6675.h', 'ESP8266WebServer.h' 
