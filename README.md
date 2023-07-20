@@ -13,7 +13,7 @@
                      /               \                                        /           \
                 DHT11              MAX6675K                               DHT11          MAX6675K
               /      \               /     \                              /    \          /       \
-           Client   Server       Client   Client                    Client    Server     Client   Server
+           Client   Server       Client   Server                    Client    Server     Client   Server
      (Arduino_IDE)  (laptop) (Arduino_IDE)   (laptop)              (Python)   (laptop)  (Python)  (laptop)
 
 
