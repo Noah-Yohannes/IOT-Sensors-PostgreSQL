@@ -20,11 +20,11 @@
 ## **Dependencies & Libraries**
 
 - Node_mcu_esp8266:
-         - Client's code (in Arduino IDE): = 'WiFiClient.h', 'ESP8266WiFi.h', 'DHT.h', 'max6675.h', 'ESP8266WebServer.h' 
-         - Server's code (Laptop) = 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
+         * Client's code (in Arduino IDE): = 'WiFiClient.h', 'ESP8266WiFi.h', 'DHT.h', 'max6675.h', 'ESP8266WebServer.h' 
+         * Server's code (Laptop) = 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
 - Raspberry_Pi_Zero_W/WH:
-          - Client's code (Python): 'spidev', 'time', 'sys', 'socket'
-          - Server's code (Laptop): 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
+          * Client's code (Python): 'spidev', 'time', 'sys', 'socket'
+          * Server's code (Laptop): 'socket', 'psycopg2','datetime', 'collections', 'numpy', 'matplotlib', 'pandas', 'logging'
 
   ## Author
    - Noah Yohannes
