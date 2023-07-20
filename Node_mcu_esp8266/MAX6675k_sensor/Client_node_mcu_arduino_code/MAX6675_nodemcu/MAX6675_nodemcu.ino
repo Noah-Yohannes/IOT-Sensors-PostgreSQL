@@ -15,10 +15,10 @@
 
 //WiFiServer server(80);
 // WiFi parameters to be configured
-const char* ssid = "Enter your wifi"; // Write here your router's username
-const char* password = "enter your wifi password"; // Write here your router's passward
-const char* serverIP = "enter your destination Ip address";  //the IP address of the server
-int serverPort = 5095;  //  port number of the server
+const char* ssid = "LAN_network"; // Write here your router's username
+const char* password = "password"; // Write here your router's passward
+const char* serverIP = "server_address";  //the IP address of the server  
+int serverPort = 0000;  //  port number of the server
 
 
 //what is the difference if we declare it as wifiserver or wificlient. I think if it is a server it is in either A or mode
@@ -65,7 +65,6 @@ void setup() {
   }
 }
 
-
 void loop() {
   
   if (WiFi.status() != WL_CONNECTED) {
@@ -86,7 +85,9 @@ void loop() {
  // Serial.println(client.localPort());
   // Serial.println("Sending the temperature reading to the Laptop");
 
-  client.print(temperature);
+  String sending_data =  String(temperature)+"~" ;
+
+  client.print(sending_data);
   delay(1000);
   Serial.println("Data sent to the laptop");
 }

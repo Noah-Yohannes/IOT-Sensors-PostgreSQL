@@ -23,11 +23,14 @@ import logging              # for future references
 # ---->>>>>>>>> Database parameters | Table creation  <<<<<<<<---------#
 # Connection parameters
 # because I am displaying the pgadmin table in the same laptop I am reading the values
-dbhost = "your_database_host"
-dbport = "your_database_port"
-db = "data_base_name"
-dbuser = "data-base_user"
-dbpassword = "Your_database_password!"
+
+dbhost = "localhost"
+dbport = "5432"  # default port number for postgresql
+db = "postgres"
+dbuser = "postgres_username"
+dbpassword = "Your_postgress_password"
+
+count = 0
 
 
 # Establishing a connection to the database
@@ -83,13 +86,11 @@ df = pd.read_sql(sql_connection, conn).tail(10)
 
 # to avoid unordered temperature values in the y-axis we make sure that temperature readings are in float data type; otherwise only latest temperature readings
 # that are lower values will be on higher level in the y-axis (because matplotlib.pyplot will simply interpret them as strings unless mentioned as float)
-df['temperature'] = df['temperature'].astype(float)
-df['humidity'] = df['humidity'].astype(float)
-temp = df['temperature']
-humi = df['humidity']
+temp = df['temperature'].astype(float)
+humi = df['humidity'].astype(float)
 tim = df['timestamp']
 # df['timestamp'] = df['timestamp'].astype("string")  because it is being saved as varchar() it is a string, so no need to specify
-width = 800
+width = 600
 height = 800
 # resizes figure as a whole, that's why it is plt.figure(). Indirectly, the plot also is resized maintaining its proportions
 
@@ -106,15 +107,16 @@ line, = ax1.plot(tim, temp, marker="o", color="red")
 """
 
 # jad java command line that generates source code after 90%. What does it do?
-plt.ion()
+
 ax2 = ax1.twinx()
+# here we will use set_xlim to reverse the orientation of ax2. We exploited the set_xlim function by reversing the minimum and maximum
+# but we didn't specify and we just converted the
+ax2.set_xlim(ax1.get_xlim()[::-1])
 line2 = ax2.plot(tim, humi, marker="o", color="blue")[0]
 plt.title("Temperature and Humidity vs timestamp")
 ax1.set_xlabel(" Timestamp")
 ax1.set_ylabel(" Temperature (°C)", fontdict={
     'fontsize': 20,  'fontstyle': 'oblique'}, color='red')
-# ax1.set_xticklabels(rotation=45)
-# ax1.set_xticks(df['timestamp'], rotation=45)
 ax2.set_ylabel("Humidity (%)", fontdict={
     'fontsize': 20, 'fontstyle': 'oblique'}, color='blue')
 
@@ -123,24 +125,12 @@ ax2.set_ylabel("Humidity (%)", fontdict={
 line.set_label("Temperature")
 line2.set_label("Humidity")
 
-# creating legend for the plot for both subplots
+# creating legend in the plot for both subplots
 ax1.legend([line, line2], [line.get_label(), line2.get_label()], loc=1)
 
-plt.show()
 
-# Now ploting the humidity readings on the same plot but on a mirroring y-axis
-# Old code below to be deleted or replaced
-#
-#
-#ax1 = plt.twinx()
-#ax1.plot(df['timestamp'], df['humidity'], marker="*", color="blue")
-# ax1.set_ylabel("Humidity (%)", fontdict={
-#    'fontsize': 20, 'fontstyle': 'oblique'}, color='blue')
-# ax1.set_title(" Temperature, Humidity vs timestamp", fontdict={
-#   'fontsize': 22, 'fontstyle': 'italic'}, color="brown", pad=20)
-
-
-def animation_attempt(frame, line, line2):
+def animation_attempt(frame):
+    print("It has gone inside the animation_attempt")
 
     # Get the current local time
     current_time = datetime.datetime.now()
@@ -148,10 +138,11 @@ def animation_attempt(frame, line, line2):
     # Receive data from the client
     data = client_socket.recv(1024)
 
+    print(" checking if there is even a data/reading obtained")
     if not data:
         # No more data, connection closed by client
         # it was break before, but break can only be used in a loop in python so i substituted it with return because it will end the function
-        return None
+        print("Well there is nothing this season")
     # Process the received data as needed
     temporary = data.decode()
     separator = ";"
@@ -171,30 +162,28 @@ def animation_attempt(frame, line, line2):
     Humidity = float(humud)
 
 # ------------>>>>>>>>>>>>> Ploting the line chart using Matplotlib library <<<<<<<<<<<<-----------------------
-
+    print("Now going to deal with database")
     # specifying the details of the columns and the table from which we want to extract data, just a string but will be used in the next command
-    sql_connection = (
+    sql_connection2 = (
         "SELECT timestamp, temperature, humidity FROM DHT22_nodemcu_table")
 
     # ---->>>>>>>>> Accessing data from the Postgresql database and create a dataframe <<<<<<<<---------
     #
     # here we are using pandas to read from an sql and the conn object to communicate with the database using psycopg2 library
     # the .tail(10) will give us the last 10 rows, the latest readings. We are going to use those latest 10 entries to plot the graph, relevant and up-to-date.
-
-    df = pd.read_sql(sql_connection, conn).tail(10)
+    print("Obtaining dataframes")
+    d = pd.read_sql(sql_connection2, conn).tail(10)
 
     # to avoid unordered temperature values in the y-axis we make sure that temperature readings are in float data type; otherwise only latest temperature readings
     # that are lower values will be on higher level in the y-axis (because matplotlib.pyplot will simply interpret them as strings unless mentioned as float)
-    df['temperature'] = df['temperature'].astype(float)
-    df['humidity'] = df['humidity'].astype(float)
+    temp_array = d['temperature'].astype(float)
+    humidity_array = d['humidity'].astype(float)
+    time_array = d['timestamp']
 
-    # calling the function to update the queues and plot the line chart
-    # update_plot(timestamp_for_plot, Temperature, Humidity,
-    #           temp_que, timestamp_que, humidity_que)
-    line.set_data(df['timestamp'], df['temperature'])
-    line2.set_data(df['timestamp'], df['humidity'])
-
-   # ax1.plot(tim, humi, marker="*")
+   # updating the label on the x-axis
+    line.set_xdata(time_array)
+    line.set_ydata(temp_array)
+    line2.set_ydata(humidity_array)
 
     # Insert the readings into the table
     cursor.execute(
@@ -203,14 +192,13 @@ def animation_attempt(frame, line, line2):
 
     return line, line2
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
-
 # by setting blit = True parameter we are optimizing our code, the compiler will compare the previous frame and current frame state
 # and will only change the values that have been changed not the whole plot
-print(" before reaching the animation function")
+
+
 anime = animationi.FuncAnimation(fig, animation_attempt, frames=100,
-                                 interval=20, fargs=(line, line2), blit=True, repeat=True)
+                                 interval=20, blit=True, repeat=True)   # remove blit = True
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
 
@@ -224,4 +212,10 @@ def cleanup():
     conn.close()
     server_socket.close()
     print("Server stopped.")
+
+
 # Register the cleanup function to be called when the animation ends or is manually stopped
+
+
+plt.show()
+print("After vising plt.show() wow wow")

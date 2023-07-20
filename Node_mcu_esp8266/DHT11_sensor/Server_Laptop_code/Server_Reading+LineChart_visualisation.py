@@ -28,9 +28,6 @@ humidity_mean_que = deque([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 count = 0  # counter that increments everytime a reading is received from the Node MCU esp 8266
 # potential values to be put in the calibrated positions of the x-axis
 x_tick_marker_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#temporary_array = np.arange(0, 100, 3)
-# y_tick_marker_values = temporary_array.tolist()                 # potential values to be put in the calibrated positions of the x-axis
-# no need plt.plot() generates tick mark calibrations by itself
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,7 +91,7 @@ def update_plot(time_stamp, heat_level, humidity, temp_que, timestamp_que, humid
 
 
 # -------> Another approach is instead of replacing the cound index value we could replace the the first, that is the oldest entry from all the three
-#  ------->deques and then shift the list by one unit to the left and add these measurements at the end, then order . reconsider these alternatives
+ #  ------->deques and then shift the list by one unit to the left and add these measurements at the end, then order . reconsider these alternatives
 
 
 # -----------------------Plotting the Line chart ----------------------
@@ -150,20 +147,21 @@ def update_plot(time_stamp, heat_level, humidity, temp_que, timestamp_que, humid
     plt.show()
     plt.pause(2.5)
     plt.close()
-    # ------------------------ Plotting ends here ----------------------
+# ------------------------ Plotting ends here ----------------------
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 # ---->>>>>>>>> Database parameters | Table creation  <<<<<<<<---------#
-
-# because I am hosting the pgadmin table in the same laptop I am reading the values, my host name is "localhost" in postgresql
+# Connection parameters
+# because I am displaying the pgadmin table in the same laptop I am reading the values
+# localhost because I am working on my laptop as the server destination of the database
 dbhost = "localhost"
-dbport = "5432"                   # default port for PostgreSQL
-db = "postgres"                   # default database name is postgres
-dbuser = "postgres"                  # default database user name is postgres
-dbpassword = "Your_database_password"
+dbport = "5432"     # default port number
+db = "postgres"
+dbuser = "postgresql_username"
+dbpassword = "Your_postgresql_password"  # ezia kab zkone seb hibaya
 
 
 # Establishing a connection to the database
@@ -187,7 +185,7 @@ cursor.execute("""
 # ---->>>>>>>>> TCP wifi connection parameters<<<<<<<<---------
 
 host = "0.0.0.0"  # Listen on all available network interfaces
-port = 5095      # Port number to listen on
+port = 0000      # Port number to listen on
 # Create a socket object
 # specifying that the type of socket is IPv4, and TCP type by the second argument
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

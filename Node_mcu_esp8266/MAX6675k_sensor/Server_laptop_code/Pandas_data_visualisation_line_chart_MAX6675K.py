@@ -65,9 +65,10 @@ x_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 dbhost = "localhost"     # because I am hosting the pgadmin table in the same laptop I am reading the values, my host name is "localhost" in postgresql
 dbport = "5432"                     # default port for PostgreSQL
 db = "postgres"                     # default database name is postgres
-dbuser = "postgres"                 # default database user name is postgres
+# default database user name is postgres
+dbuser = "postgresql_username"
 # PostgreSQL password to be established with the database
-dbpassword = "Your_database_password"
+dbpassword = "Your_postgresql_password"
 # datetime library is more comprehensive in that it includes dates, months and even years and that's why it is used
 current_t = datetime.datetime.now()
 # instead of the time library

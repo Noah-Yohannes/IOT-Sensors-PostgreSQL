@@ -7,16 +7,16 @@ import datetime
 
 # TCP wifi connection parameters
 host = "0.0.0.0"  # Listen on all available network interfaces
-port = 5095      # Port number to listen on
+port = 0000     # Port number to listen on
 
 # Database Parameters
 # Connection parameters
 # because I am displaying the pgadmin table in the same laptop I am reading the values
 dbhost = "localhost"
-dbport = "5432"
+dbport = "5432"  # default port number
 db = "postgres"
-dbuser = "postgres"
-dbpassword = "Enter_your_PostgreSQL_password here"
+dbuser = "postgresql_username"
+dbpassword = "Your_postgresql_password"  # ezia kab zkone seb hibaya
 
 
 # Establishing a connection to the database
