@@ -7,7 +7,7 @@
 - The data is also displayed in line charts and scatter plots using the *Matplotlib* library using different approaches.
 
 
-**Hierarchy**
+### **Hierarchy**
         -             Node_mcu_esp8266                                     Raspberry_Pi_Zero_W/WH
                       /             \                                          /         \
                      /               \                                        /           \
