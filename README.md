@@ -36,8 +36,6 @@
 
   ## Author
    - Noah Yohannes
-   - GitHub: [Noah-Yohannes](https://github.com/Noah-Yohannes)
-   - Email: NoahYohannesWoldegiorgish@gmail.com 
-  
+   - GitHub: [Noah-Yohannes](https://github.com/Noah-Yohannes)  
 
 
